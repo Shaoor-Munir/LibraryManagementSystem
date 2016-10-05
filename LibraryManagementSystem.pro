@@ -14,7 +14,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     lms.cpp \
     libitem.cpp \
     user.cpp \
@@ -25,9 +24,14 @@ SOURCES += main.cpp\
     admin.cpp \
     clerk.cpp \
     login.cpp \
-    myDAL.cpp
+    myDAL.cpp \
+    lms_s.cpp \
+    loginerror.cpp \
+    adminmainwindow.cpp \
+    adduser.cpp \
+    additem.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     lms.h \
     libitem.h \
     user.h \
@@ -38,7 +42,16 @@ HEADERS  += mainwindow.h \
     admin.h \
     clerk.h \
     login.h \
-    myDAL.h
+    myDAL.h \
+    lms_s.h \
+    loginerror.h \
+    adminmainwindow.h \
+    adduser.h \
+    additem.h
 
-FORMS    += mainwindow.ui \
-    login.ui
+FORMS    += \
+    login.ui \
+    loginerror.ui \
+    adminmainwindow.ui \
+    adduser.ui \
+    additem.ui

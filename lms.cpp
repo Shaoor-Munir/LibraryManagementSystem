@@ -15,6 +15,20 @@ void LMS::add_LibItem(LibItem * item)
     this->items.push_back(item);
 }
 
+User *LMS::login_user(string name, string password)
+{
+    //logic for logging in will go here
+    for(int i=0;i<users.size();i++ )
+    {
+        if(users[i]->get_username() == name && users[i]->get_password() == password)
+        {
+            return users[i];
+        }
+    }
+
+    return nullptr;
+}
+
 bool LMS::add_User(User * user)
 {
     for (int i = 0; i < users.size(); i++)

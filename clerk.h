@@ -14,7 +14,7 @@ class Clerk : public User {
 
 
 public:
-    Clerk(string name = "");
+    Clerk(string name = "", string uname = "", string password = "");
     string return_type();
 
 };

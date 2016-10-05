@@ -15,7 +15,7 @@ class Student : public User {
 
 
 public:
-    Student(string name,string uname);
+    Student(string name = "",string uname = "", string password = "");
     string return_type();
 };
 #endif // STUDENT_H

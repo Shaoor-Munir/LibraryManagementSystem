@@ -23,6 +23,7 @@ public:
     void add_LibItem(LibItem *item);
     bool add_User(User *user);
     LibItem * search_LibItem(string type, string name);
+    User * login_user (string uname, string password);
     User * search_User(string type, string username);
     vector <User *> search_user_by_name(string type, string name);
     vector <Book *>author_search_book(string author);

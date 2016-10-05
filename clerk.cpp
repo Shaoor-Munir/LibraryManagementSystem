@@ -1,7 +1,7 @@
 #include "clerk.h"
 
 
-Clerk::Clerk(string name):User(name)
+Clerk::Clerk(string name, string uname, string password):User(name, uname, password)
 {
 }
 
