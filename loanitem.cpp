@@ -3,9 +3,10 @@
 #include"User.h"
 #include"LibItem.h"
 
-LoanItem::LoanItem(User * u, LibItem * item)
+LoanItem::LoanItem(User * u, LibItem * item, int id, bool isReturned)
 {
-    this->isReturned = false;
+    this->id = id;
+    this->isReturned = isReturned;
     this->u = u;
     this->item = item;
     this->u->add_loanItem(this);
@@ -25,4 +26,14 @@ void LoanItem::returnItem()
 bool LoanItem::check_status()
 {
     return isReturned;
+}
+
+User * LoanItem::get_user()
+{
+    return this->u;
+}
+
+LibItem * LoanItem::get_item()
+{
+    return this->item;
 }

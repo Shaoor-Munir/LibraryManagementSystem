@@ -1,6 +1,6 @@
 #include "student.h"
 
-Student::Student(string name, string uname, string password):User(name, uname, password)
+Student::Student(int id, string name, string uname,string phone_number, string address, string password):User(id, name, uname,phone_number, address, password)
 {
 
 }

@@ -15,7 +15,7 @@ class Admin :public User {
 
 
 public:
-    Admin(string name = "", string uname ="", string password = "");
+    Admin(int id = 0, string name = "",string uname = "", string phone_number = "", string address = "", string password = "");
     string return_type();
 };
 

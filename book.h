@@ -12,7 +12,7 @@ class Book : public LibItem {
     string author;
 
 public:
-    Book(string name = "", string author = "");
+    Book(int id = 0, string name = "", string author = "");
     string get_author();
     string return_type();
 };

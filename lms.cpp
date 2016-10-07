@@ -4,6 +4,7 @@
 #include"LibItem.h"
 #include"Book.h"
 #include"DVD.h"
+#include"loanitem.h"
 
 LMS::LMS()
 {
@@ -29,6 +30,19 @@ User *LMS::login_user(string name, string password)
     return nullptr;
 }
 
+void LMS::add_existing_loan(LoanItem * in)
+{
+    User * temp_u = this->search_User(in->get_user()->get_id());
+    LibItem * temp_i = this->search_LibItem(in->get_item()->get_id());
+
+    if(temp_u != nullptr && temp_i != nullptr)
+    {
+        temp_u->add_loanItem(in);
+        temp_i->add_loanItem(in);
+
+    }
+}
+
 bool LMS::add_User(User * user)
 {
     for (int i = 0; i < users.size(); i++)
@@ -40,22 +54,22 @@ bool LMS::add_User(User * user)
     return true;
 }
 
-LibItem * LMS::search_LibItem(string type, string name)
+LibItem * LMS::search_LibItem(int id)
 {
     for (int i = 0; i < items.size(); i++)
     {
-        if (items[i]->return_type() == type && items[i]->get_name() == name)
+        if (items[i]->get_id() == id)
             return items[i];
     }
 
     return nullptr;
 }
 
-User * LMS::search_User(string type, string username)
+User * LMS::search_User(int id)
 {
     for (int i = 0; i < users.size(); i++)
     {
-        if (users[i]->return_type() == type && users[i]->get_username() == username)
+        if (users[i]->get_id() == id)
             return users[i];
     }
 

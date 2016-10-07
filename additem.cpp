@@ -41,6 +41,7 @@ void AddItem::on_buttonBox_accepted()
     string name = ui->in_name->text().toStdString();
     string extra = ui->in_extra->text().toStdString();
 
+    /*
     if(type == "Book")
     {
         Book * b = new Book(name, extra);
@@ -51,7 +52,7 @@ void AddItem::on_buttonBox_accepted()
         DVD * dvd =  new DVD(name, extra);
         library->add_LibItem(dvd);
     }
-
+    */
     QMessageBox message;
 
     message.setText("LibItem has been successfully added.");

@@ -1,7 +1,6 @@
 #include "login.h"
 #include "ui_login.h"
 #include"QString"
-#include"myDAL.h"
 #include"qsqlquery.h"
 #include "lms_s.h"
 #include"admin.h"
@@ -38,12 +37,6 @@ void Login::on_buttons_accepted()
 
     LMS * library = obj->return_library();
 
-    Admin * a = new Admin("Shaoor Munir", "shaoor", "apple123");
-    Student *s = new Student ("Haseeb Ahmed", "haseeb", "fogger345");
-
-    library->add_User(a);
-    library->add_User(s);
-
     User * curr_user = library->login_user(username.toStdString(), password.toStdString());
 
     if(curr_user != nullptr)
@@ -58,11 +51,13 @@ void Login::on_buttons_accepted()
 
 
     }
+
     else
     {
         QMessageBox box;
         box.setText("Username or password is incorrect. Please check again.");
         box.exec();
+        ui->setupUi(this);
     }
 
 }

@@ -34,9 +34,10 @@ void AddUser::on_buttonBox_accepted()
     string uname = ui->in_uname->text().toStdString();
     string pass = ui->in_pass->text().toStdString();
 
+    /*
     if(selection == "Admin")
     {
-        Admin * a = new Admin(name, uname, pass);
+        Admin * a = new Admin(id, name, uname, pass);
         check  = library->add_User(a);
     }
     else if(selection == "Clerk")
@@ -50,7 +51,7 @@ void AddUser::on_buttonBox_accepted()
         Student * s = new Student(name, uname, pass);
         check  = library->add_User(s);
     }
-
+    */
     QMessageBox message;
 
     if(check == false)

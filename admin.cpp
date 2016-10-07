@@ -1,6 +1,6 @@
 #include "admin.h"
 
-Admin::Admin(string name, string uname, string password):User(name, uname, password)
+Admin::Admin(int id, string name, string uname,string phone_number, string address, string password):User(id, name, uname,phone_number, address, password)
 {
 
 }

@@ -2,10 +2,13 @@
 
 #include"LoanItem.h"
 
-User::User(string name, string uname, string password)
+User::User(int id, string name, string uname, string phone_number, string address, string password)
 {
+    this->id = id;
     this->name = name;
     this->user_name = uname;
+    this->phone_number = phone_number;
+    this->address = address;
     this->password = password;
 }
 
@@ -27,6 +30,11 @@ string User::get_name()
 string User::get_password()
 {
     return this->password;
+}
+
+int User::get_id()
+{
+    return id;
 }
 
 vector<LoanItem*> User::return_pending_loans()

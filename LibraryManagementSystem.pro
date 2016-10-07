@@ -24,7 +24,6 @@ SOURCES += main.cpp\
     admin.cpp \
     clerk.cpp \
     login.cpp \
-    myDAL.cpp \
     lms_s.cpp \
     loginerror.cpp \
     adminmainwindow.cpp \
@@ -42,7 +41,6 @@ HEADERS  += \
     admin.h \
     clerk.h \
     login.h \
-    myDAL.h \
     lms_s.h \
     loginerror.h \
     adminmainwindow.h \

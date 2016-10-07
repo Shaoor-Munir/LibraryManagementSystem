@@ -13,13 +13,15 @@ class LoanItem;
 class LibItem {
 
 protected:
+    int id;
     string name;
     vector <LoanItem*> loans;
 
 public:
-    LibItem(string name = "");
+    LibItem(int id = 0, string name = "");
     void add_loanItem(LoanItem *item);
     string get_name();
+    int get_id();
     virtual string return_type() = 0;
 
 };
