@@ -1,4 +1,4 @@
-#include"login.h"
+#include"loginwindow.h"
 #include"lms_s.h"
 #include"user.h"
 #include"admin.h"
@@ -115,9 +115,7 @@ void load_data()
 
          if(temp_u != nullptr && temp_i != nullptr)
          {
-            LoanItem * l = new LoanItem(temp_u,temp_i, id, returned);
-            temp_u->add_loanItem(l);
-            temp_i->add_loanItem(l);
+            LoanItem * l = new LoanItem(temp_u,temp_i, id, iDate, rDate, returned);
          }
     }
 }
@@ -143,9 +141,8 @@ int main(int argc, char *argv[])
 
     create_connection();
     load_data();
-    Login * w =  new Login();
+    loginMainWIndow * w =  new loginMainWIndow();
     w->show();
-
     return a.exec();
 }
 

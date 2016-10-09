@@ -4,10 +4,15 @@
 #include"admin.h"
 #include"student.h"
 #include"clerk.h"
-#include"loginerror.h"
 #include"QMessageBox"
-#include"adminmainwindow.h"
-
+#include"mainwindow.h"
+#include<QtSql/QSql>
+#include<QtSql>
+#include<QtSql/QSqlDatabase>
+#include<QDebug>
+#include<QSqlQuery>
+#include<QSqlError>
+#include<QtCore>
 
 AddUser::AddUser(QWidget *parent) :
     QDialog(parent),
@@ -25,42 +30,80 @@ void AddUser::on_buttonBox_accepted()
 {
 
     LMS_S *obj = new LMS_S();
-    bool check = false;
     LMS * library = obj->return_library();
 
     string selection = ui->in_type->currentText().toStdString();
 
-    string name = ui->in_name->text().toStdString();
-    string uname = ui->in_uname->text().toStdString();
-    string pass = ui->in_pass->text().toStdString();
+    QString name = ui->in_name->text();
+    QString uname = ui->in_uname->text();
+    QString pass = ui->in_pass->text();
+    QString address = ui->in_adress->text();
+    QString phone = ui->in_phone->text();
+    QString type = ui->in_type->currentText();
 
-    /*
-    if(selection == "Admin")
-    {
-        Admin * a = new Admin(id, name, uname, pass);
-        check  = library->add_User(a);
-    }
-    else if(selection == "Clerk")
-    {
-        Clerk * c = new Clerk(name, uname, pass);
-        check  = library->add_User(c);
+   if(type == "Admin")
+   {
+       type = "admin";
+   }
+   else if(type == "Clerk")
+   {
+       type = "clerk";
+   }
+   else
+   {
+       type = "student";
+   }
 
-    }
-    else if(selection == "Student")
-    {
-        Student * s = new Student(name, uname, pass);
-        check  = library->add_User(s);
-    }
-    */
+    QSqlQuery query;
+    query.prepare("execute add_user @input_name = ?,@input_uname = ?,@input_password = ?,@output_id  = ? output,@phone = ?,@input_address = ?,@type = ?");
+
+    query.bindValue(0, name);
+
+    query.bindValue(1, uname);
+
+    query.bindValue(2, pass);
+
+    query.bindValue(3, 0, QSql::Out);
+
+    query.bindValue(4, phone);
+
+    query.bindValue(5, address);
+
+    query.bindValue(6, type);
+
+    query.exec();
+
+    int id = query.boundValue(3).toInt();
+
+
+    cout<<id<<endl;
+
+
     QMessageBox message;
 
-    if(check == false)
+    if(id == -1)
     {
 
         message.setText("Cannot add user, Username may already exist in database.");
     }
     else
     {
+        User * u;
+        if(type == "admin")
+        {
+            u =  new Admin(id, name.toStdString(),uname.toStdString(), phone.toStdString(), address.toStdString(), pass.toStdString());
+        }
+        else if(type =="clerk")
+        {
+            u = new Clerk(id, name.toStdString(), uname.toStdString(), phone.toStdString(), address.toStdString(), pass.toStdString());
+        }
+        else
+        {
+            u = new Student(id, name.toStdString(), uname.toStdString(), phone.toStdString(), address.toStdString(), pass.toStdString());
+        }
+
+        library->add_User(u);
+
         message.setText("User has been created successfully.");
     }
 

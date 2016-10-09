@@ -19,9 +19,11 @@ class LoanItem {
     string rDate;
     bool isReturned;
 public:
-    LoanItem(User *u = nullptr, LibItem *item = nullptr, int id = 0, bool isReturned = false);
+    LoanItem(User *u = nullptr, LibItem *item = nullptr, int id = 0, string iDate = "", string rDate = "",  bool isReturned = false);
     void returnItem();
     bool check_status();
+    string return_iDate();
+    string return_rDate();
     User * get_user();
     LibItem * get_item();
 };

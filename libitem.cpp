@@ -1,4 +1,5 @@
 #include "libitem.h"
+#include"loanitem.h"
 
 LibItem::LibItem(int id, string name)
 {
@@ -19,4 +20,16 @@ string LibItem::get_name()
 int LibItem::get_id()
 {
    return this->id;
+}
+
+bool LibItem::check_availability()
+{
+    for(int i=0;i<loans.size();i++)
+    {
+        if(loans[i]->check_status() == false)
+        {
+            return false;
+        }
+    }
+    return true;
 }

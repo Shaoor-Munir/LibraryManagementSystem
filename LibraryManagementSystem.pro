@@ -23,12 +23,14 @@ SOURCES += main.cpp\
     student.cpp \
     admin.cpp \
     clerk.cpp \
-    login.cpp \
     lms_s.cpp \
-    loginerror.cpp \
-    adminmainwindow.cpp \
     adduser.cpp \
-    additem.cpp
+    additem.cpp \
+    loginwindow.cpp \
+    mainwindow.cpp \
+    userdetails.cpp \
+    userloans.cpp \
+    issueitem.cpp
 
 HEADERS  += \
     lms.h \
@@ -40,16 +42,20 @@ HEADERS  += \
     student.h \
     admin.h \
     clerk.h \
-    login.h \
     lms_s.h \
-    loginerror.h \
-    adminmainwindow.h \
     adduser.h \
-    additem.h
+    additem.h \
+    loginwindow.h \
+    mainwindow.h \
+    userdetails.h \
+    userloans.h \
+    issueitem.h
 
 FORMS    += \
-    login.ui \
-    loginerror.ui \
-    adminmainwindow.ui \
     adduser.ui \
-    additem.ui
+    additem.ui \
+    loginwindow.ui \
+    mainwindow.ui \
+    userdetails.ui \
+    userloans.ui \
+    issueitem.ui

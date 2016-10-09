@@ -6,6 +6,7 @@
 #include<vector>
 #include<string>
 
+
 using namespace std;
 
 class LoanItem;
@@ -23,6 +24,7 @@ public:
     string get_name();
     int get_id();
     virtual string return_type() = 0;
+    bool check_availability();
 
 };
 

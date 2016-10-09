@@ -16,7 +16,7 @@ public:
     ~AddItem();
 
 private slots:
-    void on_in_type_currentIndexChanged(const QString &arg1);
+    void on_in_type_currentIndexChanged();
 
     void on_buttonBox_accepted();
 

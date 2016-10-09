@@ -32,6 +32,16 @@ string User::get_password()
     return this->password;
 }
 
+string User::get_address()
+{
+    return this->address;
+}
+
+string User::get_number()
+{
+    return this->phone_number;
+}
+
 int User::get_id()
 {
     return id;
@@ -48,4 +58,8 @@ vector<LoanItem*> User::return_pending_loans()
     }
 
     return temp;
+}
+vector<LoanItem *> User::return_loans()
+{
+    return this->loans;
 }
