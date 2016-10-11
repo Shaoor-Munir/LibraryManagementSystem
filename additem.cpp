@@ -34,10 +34,14 @@ void AddItem::on_in_type_currentIndexChanged()
     if(type == "Book")
     {
         ui->extraDetail->setText("Author");
+        ui->SubjectLabel->show();
+        ui->in_subject->show();
     }
     else
     {
         ui->extraDetail->setText("Category");
+        ui->SubjectLabel->hide();
+        ui->in_subject->hide();
     }
 }
 
@@ -48,6 +52,7 @@ void AddItem::on_buttonBox_accepted()
 
     QString type = ui->in_type->currentText();
     QString name = ui->in_name->text();
+    QString subject = "";
     QString category = "";
     QString author ="";
 
@@ -55,6 +60,7 @@ void AddItem::on_buttonBox_accepted()
     {
         type = "book";
         author = ui->in_extra->text();
+        subject = ui->in_subject->text();
     }
     else
     {
@@ -63,29 +69,32 @@ void AddItem::on_buttonBox_accepted()
     }
 
     QSqlQuery query;
-    query.prepare("execute add_item @input_name=?, @input_author=?, @input_category=?, @input_type=?, @output_id=? output");
+    query.prepare("execute add_item @input_name=?, @input_author=?, @input_subject=?, @input_category=?, @input_type=?, @output_id=? output");
 
     query.bindValue(0, name);
 
     if(type == "book")
+    {
         query.bindValue(1, author);
+        query.bindValue(2, subject);
+    }
     else
-        query.bindValue(2, category);
+        query.bindValue(3, category);
 
-    query.bindValue(3, type);
-    query.bindValue(4, 0, QSql::Out);
+    query.bindValue(4, type);
+    query.bindValue(5, 0, QSql::Out);
 
     query.exec();
 
 
 
-    int id = query.boundValue(4).toInt();
+    int id = query.boundValue(5).toInt();
 
      cout<<id<<endl;
 
     if(type == "Book")
     {
-        Book * b = new Book(id, name.toStdString(), author.toStdString());
+        Book * b = new Book(id, name.toStdString(), author.toStdString(), subject.toStdString());
         library->add_LibItem(b);
     }
     else

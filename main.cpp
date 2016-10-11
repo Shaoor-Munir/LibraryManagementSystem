@@ -72,15 +72,16 @@ void load_data()
         int id = query.value(0).toInt();
         string name = query.value(1).toString().toStdString();
         string author = query.value(2).toString().toStdString();
-        string category = query.value(3).toString().toStdString();
-        string type = query.value(4).toString().toStdString();
+        string subject = query.value(3).toString().toStdString();
+        string category = query.value(4).toString().toStdString();
+        string type = query.value(5).toString().toStdString();
 
-        cout<<id<<" "<<name<<" "<<author<<" "<<category<<" "<<type<<endl;
+        cout<<id<<" "<<name<<" "<<author<<" "<<subject<<" "<<category<<" "<<type<<endl;
         LibItem * i;
 
         if(type == "book")
         {
-            i = new Book(id, name,author);
+            i = new Book(id, name,author, subject);
         }
         else
         {
