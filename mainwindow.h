@@ -26,6 +26,16 @@ private slots:
 
     void on_issue_item_button_clicked();
 
+    void on_search_item_clicked();
+
+    void on_edit_user_button_clicked();
+
+    void on_edit_item_button_clicked();
+
+    void on_remove_loan_button_clicked();
+
+    void on_logout_button_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

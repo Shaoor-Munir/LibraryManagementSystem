@@ -34,6 +34,10 @@ public:
     virtual string return_type() = 0;
     vector<LoanItem *> return_pending_loans();
     vector<LoanItem *> return_loans();
+    void update_info(string name, string uname, string address, string phoneNumber, string password);
+    bool remove_loan_by_id(int loanID, bool self_call = true);
+    void delete_all_loans();
+    void return_item(int loanID);
 };
 
 #endif // USER_H

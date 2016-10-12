@@ -23,8 +23,6 @@ UserLoans::UserLoans(QWidget *parent) :
     model->setHorizontalHeaderItem(1, new QStandardItem("Issue Date"));
     model->setHorizontalHeaderItem(2, new QStandardItem("Return Date"));
 
-    model->setHorizontalHeaderItem(3, new QStandardItem("Remove"));
-
     ui->loans->setModel(model);
 
    LMS_S * obj = new LMS_S;

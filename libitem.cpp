@@ -33,3 +33,32 @@ bool LibItem::check_availability()
     }
     return true;
 }
+bool LibItem::remove_loan_by_id(int loanID, bool self_call)
+{
+    LoanItem *l;
+    for(int i=0;i<loans.size(); i++)
+    {
+        if(loans[i]->get_id() == loanID)
+        {
+
+            l = loans[i];
+            if(self_call)
+            {
+                loans[i]->remove_from_user();
+                delete l;
+            }
+            loans.erase(loans.begin()+i);
+            return true;
+        }
+    }
+    return false;
+}
+
+void LibItem:: delete_all_loans()
+{
+
+    for(int i=0;i<loans.size();i++)
+    {
+        remove_loan_by_id(loans[i]->get_id());
+    }
+}

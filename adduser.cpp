@@ -19,6 +19,16 @@ AddUser::AddUser(QWidget *parent) :
     ui(new Ui::AddUser)
 {
     ui->setupUi(this);
+     LMS_S *obj = new LMS_S();
+     User * u = obj->return_logged_user();
+
+     if(u->return_type() == "clerk")
+     {
+         ui->in_type->clear();
+
+         ui->in_type->insertItem(0, "Student");
+     }
+
 }
 
 AddUser::~AddUser()

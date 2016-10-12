@@ -14,18 +14,17 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="MainWindowLabel">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>330</x>
       <y>0</y>
       <width>181</width>
       <height>61</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
-font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
+     <string notr="true">font: 16pt &quot;Calibri&quot;;</string>
     </property>
     <property name="text">
      <string>Admin Menu</string>
@@ -53,7 +52,7 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
      <item>
       <widget class="QPushButton" name="user_details_button">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
         <string>User Details</string>
@@ -61,9 +60,9 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="add_user_button_3">
+      <widget class="QPushButton" name="search_item">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
         <string>Search Items</string>
@@ -73,7 +72,7 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
      <item>
       <widget class="QPushButton" name="view_loans_button">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
         <string>View Loans</string>
@@ -86,7 +85,7 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
     <property name="geometry">
      <rect>
       <x>80</x>
-      <y>360</y>
+      <y>350</y>
       <width>631</width>
       <height>80</height>
      </rect>
@@ -96,32 +95,32 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
       <number>100</number>
      </property>
      <item>
-      <widget class="QPushButton" name="remove_user_button">
+      <widget class="QPushButton" name="edit_user_button">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
-        <string>Remove User</string>
+        <string>Edit User Info</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="remove_item_button">
+      <widget class="QPushButton" name="edit_item_button">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
-        <string>Remove Item</string>
+        <string>Edit Item Info</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="remove_loan_button">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
-        <string>Remove Loan</string>
+        <string>Return Book</string>
        </property>
       </widget>
      </item>
@@ -143,7 +142,7 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
      <item>
       <widget class="QPushButton" name="add_user_button">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
         <string>Add new User</string>
@@ -153,7 +152,7 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
      <item>
       <widget class="QPushButton" name="add_item_button">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
         <string>Add new Item</string>
@@ -163,7 +162,7 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
      <item>
       <widget class="QPushButton" name="issue_item_button">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
         <string>Issue Item</string>
@@ -172,52 +171,23 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_4">
+   <widget class="QWidget" name="horizontalLayoutWidget_6">
     <property name="geometry">
      <rect>
-      <x>490</x>
+      <x>20</x>
       <y>50</y>
-      <width>261</width>
+      <width>771</width>
       <height>80</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="UNIndicator">
-       <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Username:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="UNLabel">
-       <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Username</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_5">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>50</y>
-      <width>241</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <property name="spacing">
+      <number>24</number>
+     </property>
      <item>
       <widget class="QLabel" name="NIndicator">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
         <string>Name:</string>
@@ -225,12 +195,42 @@ font: 75 20pt &quot;MS Shell Dlg 2&quot;;</string>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="NLabel">
+      <widget class="QLineEdit" name="NLabel">
        <property name="styleSheet">
-        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;</string>
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="UNIndicator">
+       <property name="styleSheet">
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
        </property>
        <property name="text">
-        <string>Name</string>
+        <string>Username:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="UNLabel">
+       <property name="styleSheet">
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="logout_button">
+       <property name="styleSheet">
+        <string notr="true">font: 12pt &quot;Calibri&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Logout</string>
        </property>
       </widget>
      </item>

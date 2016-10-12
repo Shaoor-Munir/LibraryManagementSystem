@@ -20,11 +20,15 @@ class LoanItem {
     bool isReturned;
 public:
     LoanItem(User *u = nullptr, LibItem *item = nullptr, int id = 0, string iDate = "", string rDate = "",  bool isReturned = false);
-    void returnItem();
+    void returnItem(string rDate);
     bool check_status();
+    int get_id();
     string return_iDate();
     string return_rDate();
     User * get_user();
     LibItem * get_item();
+    void remove_from_item();
+    void remove_from_user();
+    void renew_loan(string iDate);
 };
 #endif // LOANITEM_H

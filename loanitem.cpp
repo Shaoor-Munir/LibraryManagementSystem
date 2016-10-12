@@ -15,14 +15,19 @@ LoanItem::LoanItem(User * u, LibItem * item, int id, string iDate, string rDate,
     this->isReturned = isReturned;
 }
 
-void LoanItem::returnItem()
+void LoanItem::returnItem(string rDate)
 {
     this->isReturned = true;
+    this->rDate = rDate;
 }
 
 bool LoanItem::check_status()
 {
     return isReturned;
+}
+int LoanItem::get_id()
+{
+    return this->id;
 }
 
 User * LoanItem::get_user()
@@ -41,4 +46,16 @@ string LoanItem::return_iDate()
 string LoanItem::return_rDate()
 {
     return this->rDate;
+}
+void LoanItem::remove_from_item()
+{
+    item->remove_loan_by_id(this->id, false);
+}
+void LoanItem::remove_from_user()
+{
+    u->remove_loan_by_id(this->id, false);
+}
+void LoanItem::renew_loan(string iDate)
+{
+    this->iDate = iDate;
 }

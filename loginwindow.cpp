@@ -36,12 +36,9 @@ void loginMainWIndow::on_buttonBox_accepted()
     {
         obj->add_logged_user(curr_user);
 
-        if(curr_user->return_type()=="admin")
-        {
-            MainWindow * adminwindow = new MainWindow();
-            adminwindow->show();
-            this->deleteLater();
-        }
+        MainWindow * adminwindow = new MainWindow();
+        adminwindow->show();
+        this->deleteLater();
 
     }
 

@@ -14,3 +14,8 @@ string DVD::return_type()
 {
     return "dvd";
 }
+void DVD::update_info(string name, string category)
+{
+    this->name = name;
+    this->category = category;
+}

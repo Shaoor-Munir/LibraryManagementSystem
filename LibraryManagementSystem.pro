@@ -30,7 +30,11 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     userdetails.cpp \
     userloans.cpp \
-    issueitem.cpp
+    issueitem.cpp \
+    itemsearch.cpp \
+    edituser.cpp \
+    edititem.cpp \
+    removeloan.cpp
 
 HEADERS  += \
     lms.h \
@@ -49,7 +53,11 @@ HEADERS  += \
     mainwindow.h \
     userdetails.h \
     userloans.h \
-    issueitem.h
+    issueitem.h \
+    itemsearch.h \
+    edituser.h \
+    edititem.h \
+    removeloan.h
 
 FORMS    += \
     adduser.ui \
@@ -58,4 +66,8 @@ FORMS    += \
     mainwindow.ui \
     userdetails.ui \
     userloans.ui \
-    issueitem.ui
+    issueitem.ui \
+    itemsearch.ui \
+    edituser.ui \
+    edititem.ui \
+    removeloan.ui

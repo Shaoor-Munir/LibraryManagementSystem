@@ -25,6 +25,8 @@ public:
     int get_id();
     virtual string return_type() = 0;
     bool check_availability();
+    bool remove_loan_by_id(int loanID, bool self_call = true);
+    void delete_all_loans();
 
 };
 

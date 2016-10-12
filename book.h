@@ -17,6 +17,7 @@ public:
     string get_author();
     string get_subject();
     string return_type();
+    void update_info(string name, string author, string subject);
 };
 
 #endif // BOOK_H

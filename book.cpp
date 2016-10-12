@@ -20,3 +20,9 @@ string Book::return_type()
 {
     return "book";
 }
+void:: Book::update_info(string name, string author, string subject)
+{
+    this->name = name;
+    this->author = author;
+    this->subject = subject;
+}

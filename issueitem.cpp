@@ -33,6 +33,9 @@ void IssueItem::on_userID_search_button_clicked()
     {
         ui->UNameLabel->setText(QString::fromStdString(current_user->get_name()));
         ui->UUNameLabel->setText(QString::fromStdString(current_user->get_username()));
+
+        if(current_item!=nullptr)
+            check_on_hold();
     }
     else
     {
@@ -44,15 +47,16 @@ void IssueItem::on_userID_search_button_clicked()
         ui->UUNameLabel->setText("Not Available");
     }
 
-
 }
 
 void IssueItem::on_itemID_search_button_clicked()
 {
     current_item = library->search_LibItem(ui->itemID->text().toInt());
 
+
     if(current_item!=nullptr)
     {
+        itemAavailable = current_item->check_availability();
         ui->INameLabel->setText(QString::fromStdString(current_item->get_name()));
         if(current_item->return_type() == "book")
         {
@@ -67,54 +71,7 @@ void IssueItem::on_itemID_search_button_clicked()
             ui->IExtraLabel->setText(QString::fromStdString(((DVD*)current_item)->get_category()));
         }
 
-        itemAavailable = current_item->check_availability();
-
-        if(itemAavailable)
-        {
-            bool onHold = false;
-            QSqlQuery query;
-            query.prepare("select * from onHoldItems where itemID = ?");
-            query.bindValue(0, current_item->get_id());
-
-            query.exec();
-            if(query.next())
-            {
-                cout<<"Checking if current user is holding the book."<<endl;
-                if(current_user != nullptr)
-                {
-                    query.prepare("select top 1 holdID from onHoldItems where userID = ? and itemID = ?");
-                    query.bindValue(0, current_user->get_id());
-                    query.bindValue(1, current_item->get_id());
-                    query.exec();
-
-                    if(query.next())
-                    {
-                        onHold = false;
-                    }
-                }
-                else
-                    onHold = true;
-            }
-
-            if(onHold)
-            {
-                itemAavailable = false;
-
-                ui->IAvailabilityLabel->setText("Item is put on hold for another user");
-                ui->issue_button->setText("Put on Hold");
-            }
-            else
-            {
-
-                ui->IAvailabilityLabel->setText("Item is available for loan");
-                ui->issue_button->setText("Issue Item");
-            }
-        }
-        else
-        {
-            ui->IAvailabilityLabel->setText("Item is currently loaned out. You can put it on hold");
-            ui->issue_button->setText("Put on Hold");
-        }
+        check_on_hold();
 
     }
     else
@@ -147,7 +104,6 @@ void IssueItem::on_issue_button_clicked()
     {
         if(itemAavailable)
         {
-
             QSqlQuery query;
             query.prepare("insert into LoanItems(userID, itemID, iDate) values (?, ?, GETDATE())");
             query.bindValue(0, current_user->get_id());
@@ -168,6 +124,16 @@ void IssueItem::on_issue_button_clicked()
             QMessageBox *box =  new QMessageBox(this);
             box->setText("Item has been successfully loaned out");
             box->show();
+
+            if(onHold)
+            {
+                query.prepare("delete from onHoldItems where itemID=? and userID=?");
+                query.bindValue(0, current_item->get_id());
+                query.bindValue(1, current_user->get_id());
+                query.exec();
+
+                cout<<"Hold has been removed."<<endl;
+            }
         }
         else
         {
@@ -189,4 +155,83 @@ void IssueItem::on_issue_button_clicked()
             }
         }
     }
+}
+
+void IssueItem::check_on_hold()
+{
+        onHold = false;
+        QSqlQuery query;
+        query.prepare("select * from onHoldItems where itemID = ?");
+        query.bindValue(0, current_item->get_id());
+
+        query.exec();
+        if(query.next())
+        {
+            cout<<"Checking if current user is holding the book."<<endl;
+            if(current_user != nullptr)
+            {
+                query.prepare("select top 1 userID from onHoldItems where itemID = ? order by holdID");
+                query.bindValue(0, current_item->get_id());
+
+                query.exec();
+
+                if(query.next())
+                {
+                    int userID = query.value(0).toInt();
+                    cout<<"User id found is: "<<userID<<endl;
+                    if(current_user->get_id() == userID)
+                    {
+                        onHold = true;
+                        cout<<"User has the book on hold"<<endl;
+                    }
+                    else
+                    {
+                        onHold = false;
+                        itemAavailable = false;
+                    }
+                }
+                else
+                {
+                    onHold = false;
+                }
+            }
+            else
+            {
+                onHold = false;
+            }
+        }
+        else
+        {
+            onHold = false;
+        }
+
+        if(itemAavailable)
+        {
+            if(onHold)
+            {
+                ui->IAvailabilityLabel->setText("Item is on hold by user. Issue it now.");
+                ui->issue_button->setText("Issue Item");
+                ui->issue_button->show();
+            }
+            else
+            {
+                ui->IAvailabilityLabel->setText("Item is available for user to issue.");
+                ui->issue_button->setText("Issue Item");
+                ui->issue_button->show();
+            }
+        }
+        else
+        {
+            if(onHold)
+            {
+                ui->IAvailabilityLabel->setText("Item is not available and is on hold by user.");
+                ui->issue_button->hide();
+            }
+            else
+            {
+                ui->IAvailabilityLabel->setText("Item is not available and can be put on hold");
+                ui->issue_button->setText("Put on Hold");
+                ui->issue_button->show();
+            }
+        }
 }

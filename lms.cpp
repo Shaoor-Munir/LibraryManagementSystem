@@ -89,9 +89,9 @@ vector<User*> LMS::search_user_by_name(string type, string name)
     return temp;
 }
 
-vector<Book*> LMS::author_search_book(string author)
+vector<LibItem *> LMS::author_search_book(string author)
 {
-    vector <Book *> temp;
+    vector <LibItem *> temp;
 
     for (int i = 0; i < items.size(); i++)
     {
@@ -99,7 +99,7 @@ vector<Book*> LMS::author_search_book(string author)
         {
             if (((Book*) items[i])->get_author() == author)
             {
-                temp.push_back((Book *)items[i]);
+                temp.push_back(items[i]);
             }
         }
     }
@@ -107,9 +107,42 @@ vector<Book*> LMS::author_search_book(string author)
     return temp;
 }
 
-vector<DVD*> LMS::category_search_dvd(string category)
+vector<LibItem *> LMS::subject_search_book(string subject)
 {
-    vector <DVD *> temp;
+    vector <LibItem *> temp;
+
+    for (int i = 0; i < items.size(); i++)
+    {
+        if (items[i]->return_type() == "book")
+        {
+            if (((Book*) items[i])->get_subject() == subject)
+            {
+                temp.push_back(items[i]);
+            }
+        }
+    }
+
+    return temp;
+}
+
+vector<LibItem *> LMS::name_search_libitem(string type, string in_name)
+{
+    vector<LibItem *> temp;
+
+    for(int i=0;i<items.size();i++)
+    {
+        if(items[i]->get_name() == in_name && items[i]->return_type() == type)
+        {
+            temp.push_back(items[i]);
+        }
+    }
+
+    return temp;
+}
+
+vector<LibItem *> LMS::category_search_dvd(string category)
+{
+    vector <LibItem *> temp;
 
     for (int i = 0; i < items.size(); i++)
     {
@@ -117,7 +150,7 @@ vector<DVD*> LMS::category_search_dvd(string category)
         {
             if (((DVD *)items[i])->get_category() == category)
             {
-                temp.push_back((DVD *)items[i]);
+                temp.push_back(items[i]);
             }
         }
     }
@@ -125,30 +158,40 @@ vector<DVD*> LMS::category_search_dvd(string category)
     return temp;
 }
 
-bool LMS::remove_LibItem(LibItem * in)
+bool LMS::remove_LibItem(int id)
 {
     for (int i = 0; i < items.size(); i++)
     {
-        if (items[i] == in)
+        if (items[i]->get_id() == id)
         {
+            items[i]->delete_all_loans();
             items.erase(items.begin() + i);
             return true;
         }
     }
-
     return false;
 }
 
-bool LMS::remove_user(string username)
+bool LMS::remove_user(int id)
 {
     for (int i = 0; i < users.size(); i++)
     {
-        if (users[i]->get_username() == username)
+        if (users[i]->get_id() == id)
         {
+            users[i]->delete_all_loans();
             users.erase(users.begin() + i);
             return true;
         }
     }
 
     return false;
+}
+bool LMS::check_username(string uname, User *u)
+{
+    for(int i=0;i<users.size();i++)
+    {
+        if(users[i]->get_username() == uname && users[i] != u)
+            return false;
+    }
+    return true;
 }
