@@ -1,6 +1,7 @@
 #include"loginwindow.h"
 #include"lms_s.h"
 #include"user.h"
+#include"state.h"
 #include"admin.h"
 #include"clerk.h"
 #include"student.h"
@@ -75,17 +76,37 @@ void load_data()
         string subject = query.value(3).toString().toStdString();
         string category = query.value(4).toString().toStdString();
         string type = query.value(5).toString().toStdString();
+        string item_state = query.value(6).toString().toStdString();
 
-        cout<<id<<" "<<name<<" "<<author<<" "<<subject<<" "<<category<<" "<<type<<endl;
+        cout<<id<<" "<<name<<" "<<author<<" "<<subject<<" "<<category<<" "<<type<<" "<<item_state<<endl;
         LibItem * i;
 
-        if(type == "book")
+        state * in_state;
+
+        if(item_state == "available")
         {
-            i = new Book(id, name,author, subject);
+            in_state = obj->return_available();
+        }
+        else if(item_state == "unavailable")
+        {
+            in_state = obj->return_unavailable();
+        }
+        else if(item_state == "reference")
+        {
+            in_state = obj->return_reference();
         }
         else
         {
-            i = new DVD(id, name, category);
+            in_state = obj->return_onHold();
+        }
+
+        if(type == "book")
+        {
+            i = new Book(id, name,author, subject, in_state);
+        }
+        else
+        {
+            i = new DVD(id, name, category, in_state);
         }
 
         library->add_LibItem(i);

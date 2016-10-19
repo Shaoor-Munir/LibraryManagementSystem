@@ -13,7 +13,7 @@ class DVD : public LibItem {
     string category;
 
 public:
-    DVD(int id = 0, string name = "", string genre = "");
+    DVD(int id = 0, string name = "", string genre = "", state * in_state = nullptr);
     string get_category();
     string return_type();
     void update_info(string name, string category);

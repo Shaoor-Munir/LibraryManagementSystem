@@ -34,7 +34,12 @@ SOURCES += main.cpp\
     itemsearch.cpp \
     edituser.cpp \
     edititem.cpp \
-    removeloan.cpp
+    removeloan.cpp \
+    state.cpp \
+    availablestate.cpp \
+    unavailablestate.cpp \
+    onholdstate.cpp \
+    referencestate.cpp
 
 HEADERS  += \
     lms.h \
@@ -57,7 +62,12 @@ HEADERS  += \
     itemsearch.h \
     edituser.h \
     edititem.h \
-    removeloan.h
+    removeloan.h \
+    state.h \
+    availablestate.h \
+    unavailablestate.h \
+    onholdstate.h \
+    referencestate.h
 
 FORMS    += \
     adduser.ui \

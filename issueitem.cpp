@@ -33,9 +33,6 @@ void IssueItem::on_userID_search_button_clicked()
     {
         ui->UNameLabel->setText(QString::fromStdString(current_user->get_name()));
         ui->UUNameLabel->setText(QString::fromStdString(current_user->get_username()));
-
-        if(current_item!=nullptr)
-            check_on_hold();
     }
     else
     {
@@ -56,8 +53,33 @@ void IssueItem::on_itemID_search_button_clicked()
 
     if(current_item!=nullptr)
     {
-        itemAavailable = current_item->check_availability();
+
+        if(current_item->check_availability() == "available")
+        {
+            ui->IAvailabilityLabel->setText("Item is available for user to issue.");
+            ui->issue_button->setText("Issue Item");
+            ui->issue_button->show();
+        }
+        else if( current_item->check_availability()=="unavailable")
+        {
+            ui->IAvailabilityLabel->setText("Item is not available and can be put on hold");
+            ui->issue_button->setText("Put on Hold");
+            ui->issue_button->show();
+        }
+        else if(current_item->check_availability()=="reference")
+        {
+            ui->IAvailabilityLabel->setText("Item is for referenc only and cannot be issued to any user");
+            ui->issue_button->hide();
+        }
+        else
+        {
+            ui->IAvailabilityLabel->setText("Item is on hold by another user. You can override it and issue it to the user");
+            ui->issue_button->setText("Issue item");
+            ui->issue_button->show();
+        }
+
         ui->INameLabel->setText(QString::fromStdString(current_item->get_name()));
+
         if(current_item->return_type() == "book")
         {
             ui->ExtraLabel->setText("Author");
@@ -70,8 +92,6 @@ void IssueItem::on_itemID_search_button_clicked()
             ui->ExtraLabel->setText("Category");
             ui->IExtraLabel->setText(QString::fromStdString(((DVD*)current_item)->get_category()));
         }
-
-        check_on_hold();
 
     }
     else
@@ -102,136 +122,6 @@ void IssueItem::on_issue_button_clicked()
     }
     else
     {
-        if(itemAavailable)
-        {
-            QSqlQuery query;
-            query.prepare("insert into LoanItems(userID, itemID, iDate) values (?, ?, GETDATE())");
-            query.bindValue(0, current_user->get_id());
-            query.bindValue(1, current_item->get_id());
-
-            query.exec();
-
-            query.prepare("select top 1 loanID, iDate from LoanItems where userID=? and itemID=? order by loanID desc");
-            query.bindValue(0, current_user->get_id());
-            query.bindValue(1, current_item->get_id());
-            query.exec();
-            query.first();
-            int id = query.value(0).toInt();
-            string iDate = query.value(1).toString().toStdString();
-
-            cout<<id<<"  "<<iDate<<endl;
-            LoanItem * l = new LoanItem(current_user, current_item, id, iDate);
-            QMessageBox *box =  new QMessageBox(this);
-            box->setText("Item has been successfully loaned out");
-            box->show();
-
-            if(onHold)
-            {
-                query.prepare("delete from onHoldItems where itemID=? and userID=?");
-                query.bindValue(0, current_item->get_id());
-                query.bindValue(1, current_user->get_id());
-                query.exec();
-
-                cout<<"Hold has been removed."<<endl;
-            }
-        }
-        else
-        {
-            QSqlQuery query;
-            query.prepare("execute hold_item @input_userID=?, @input_itemId=?, @output_holdID=? output");
-            query.bindValue(0, current_user->get_id());
-            query.bindValue(1, current_item->get_id());
-            query.bindValue(2, 0, QSql::Out);
-
-            query.exec();
-
-            int holdID = query.boundValue(2).toInt();
-
-            if(holdID >= 0)
-            {
-                QMessageBox *box =  new QMessageBox(this);
-                box->setText("Item has been successfully put on hold.");
-                box->show();
-            }
-        }
+        current_item->issueBook(current_user);
     }
-}
-
-void IssueItem::check_on_hold()
-{
-        onHold = false;
-        QSqlQuery query;
-        query.prepare("select * from onHoldItems where itemID = ?");
-        query.bindValue(0, current_item->get_id());
-
-        query.exec();
-        if(query.next())
-        {
-            cout<<"Checking if current user is holding the book."<<endl;
-            if(current_user != nullptr)
-            {
-                query.prepare("select top 1 userID from onHoldItems where itemID = ? order by holdID");
-                query.bindValue(0, current_item->get_id());
-
-                query.exec();
-
-                if(query.next())
-                {
-                    int userID = query.value(0).toInt();
-                    cout<<"User id found is: "<<userID<<endl;
-                    if(current_user->get_id() == userID)
-                    {
-                        onHold = true;
-                        cout<<"User has the book on hold"<<endl;
-                    }
-                    else
-                    {
-                        onHold = false;
-                        itemAavailable = false;
-                    }
-                }
-                else
-                {
-                    onHold = false;
-                }
-            }
-            else
-            {
-                onHold = false;
-            }
-        }
-        else
-        {
-            onHold = false;
-        }
-
-        if(itemAavailable)
-        {
-            if(onHold)
-            {
-                ui->IAvailabilityLabel->setText("Item is on hold by user. Issue it now.");
-                ui->issue_button->setText("Issue Item");
-                ui->issue_button->show();
-            }
-            else
-            {
-                ui->IAvailabilityLabel->setText("Item is available for user to issue.");
-                ui->issue_button->setText("Issue Item");
-                ui->issue_button->show();
-            }
-        }
-        else
-        {
-            if(onHold)
-            {
-                ui->IAvailabilityLabel->setText("Item is not available and is on hold by user.");
-                ui->issue_button->hide();
-            }
-            else
-            {
-                ui->IAvailabilityLabel->setText("Item is not available and can be put on hold");
-                ui->issue_button->setText("Put on Hold");
-                ui->issue_button->show();
-            }
-        }
 }

@@ -1,6 +1,6 @@
 #include "dvd.h"
 
-DVD::DVD(int id, string name, string genre):LibItem(id, name)
+DVD::DVD(int id, string name, string genre, state *in_state):LibItem(id, name, in_state)
 {
     this->category = genre;
 }

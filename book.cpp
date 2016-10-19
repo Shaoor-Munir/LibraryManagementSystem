@@ -1,6 +1,6 @@
 #include "book.h"
 
-Book::Book(int id, string name, string author, string subject):LibItem(id, name)
+Book::Book(int id, string name, string author, string subject, state * in_state):LibItem(id, name, in_state)
 {
     this->author = author;
     this->subject = subject;

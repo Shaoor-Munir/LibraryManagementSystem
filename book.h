@@ -13,7 +13,7 @@ class Book : public LibItem {
     string subject;
 
 public:
-    Book(int id = 0, string name = "", string author = "", string subject = "");
+    Book(int id = 0, string name = "", string author = "", string subject = "", state *in_state = nullptr);
     string get_author();
     string get_subject();
     string return_type();

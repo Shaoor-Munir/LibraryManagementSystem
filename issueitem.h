@@ -29,8 +29,6 @@ private slots:
 
     void on_issue_button_clicked();
 
-    void check_on_hold();
-
 private:
     Ui::IssueItem *ui;
     User * current_user;

@@ -92,10 +92,39 @@ void RemoveLoan::on_check_in_button_clicked()
             cout<<rDate<<endl;
             loan->returnItem(rDate);
 
+            query.prepare("select * from LoanItems where itemID=?");
+            query.bindValue(0, loan->get_item()->get_id());
+            query.exec();
 
-            QMessageBox message;
-             message.setText("Item has successfuly been checked in.");
-            message.exec();
+            LMS_S * obj = new LMS_S();
+
+            if(query.next())
+            {
+
+                loan->get_item()->set_state(obj->return_onHold());
+                query.prepare("update LibItems set itemState='onHold' where itemID=?");
+                query.bindValue(0, loan->get_item()->get_id());
+                query.exec();
+                cout<<"Item has been set into on hold state."<<endl;
+
+                LMS_S * obj =  new LMS_S();
+                loan->get_item()->set_state(obj->return_onHold());
+            }
+            else
+            {
+                loan->get_item()->set_state(obj->return_available());
+                query.prepare("update LibItems set itemState = 'available' where itemID=?");
+                query.bindValue(0, loan->get_item()->get_id());
+                query.exec();
+                cout<<"Item has been set into available state."<<endl;
+
+
+                loan->get_item()->set_state(obj->return_available());
+
+                QMessageBox message;
+                message.setText("Item has successfuly been checked in.");
+                message.exec();
+            }
           }
           else
               cout<<"Error"<<endl;

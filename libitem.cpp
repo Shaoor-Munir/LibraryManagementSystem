@@ -1,10 +1,16 @@
 #include "libitem.h"
 #include"loanitem.h"
+#include"lms_s.h"
+#include"user.h"
+#include"state.h"
 
-LibItem::LibItem(int id, string name)
+LibItem::LibItem(int id, string name, state *in_state)
 {
     this->id = id;
     this->name = name;
+
+    LMS_S * obj =  new LMS_S();
+    this->itemState = in_state;
 }
 
 void LibItem::add_loanItem(LoanItem * item)
@@ -19,19 +25,12 @@ string LibItem::get_name()
 
 int LibItem::get_id()
 {
-   return this->id;
+    return this->id;
 }
 
-bool LibItem::check_availability()
+string LibItem::check_availability()
 {
-    for(int i=0;i<loans.size();i++)
-    {
-        if(loans[i]->check_status() == false)
-        {
-            return false;
-        }
-    }
-    return true;
+    return this->itemState->return_state();
 }
 bool LibItem::remove_loan_by_id(int loanID, bool self_call)
 {
@@ -61,4 +60,14 @@ void LibItem:: delete_all_loans()
     {
         remove_loan_by_id(loans[i]->get_id());
     }
+}
+
+void LibItem::issueBook(User *user)
+{
+    this->itemState->issueBook(this, user);
+}
+
+void LibItem::set_state(state *in_state)
+{
+    this->itemState = in_state;
 }
